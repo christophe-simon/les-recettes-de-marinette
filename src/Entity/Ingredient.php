@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\IngredientRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[UniqueEntity(fields: 'name', message: 'Un ingrédient avec le même nom existe déjà.')]
 class Ingredient
 {
     #[ORM\Id]
@@ -16,19 +18,25 @@ class Ingredient
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'Le nom de l\'ingrédient ne peut pas être nul.',
+    )]
     #[Assert\Length(
         min: 2,
         max: 50,
-        minMessage: 'Le nom de l\'ingrédient doit être composé au minimum de {{ limit }} caractères',
-        maxMessage: 'Le nom de l\'ingrédient doit être composé au maximum de {{ limit }} caractères',
+        minMessage: 'Le nom de l\'ingrédient doit comporter au minimum {{ limit }} caractères',
+        maxMessage: 'Le nom de l\'ingrédient doit comporter au maximum {{ limit }} caractères',
     )]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Assert\NotNull]
-    #[Assert\Positive()]
-    #[Assert\LessThan(200)]
+    #[Assert\Positive(
+        message: 'Le prix de l\'ingrédient doit être positif.',
+    )]
+    #[Assert\LessThan(
+        value: 200,
+        message: 'Le prix de l\'ingrédient doit être inférieur à {{ value }} €.',
+    )]
     private ?float $price = null;
 
     #[ORM\Column]
