@@ -1,2 +1,17 @@
-'label_nom': 'Nom'
-'label_prix': 'Prix (en €/kg)'
+label_description: "Description"
+label_difficulte: "Difficulté"
+label_favori: "Favori"
+label_ingredients: "Ingrédients"
+label_nom: "Nom"
+label_nombre_de_personnes: "Nombre de personnes"
+label_prix: "Prix (en €/kg)"
+label_temps_de_preparation: "Temps de préparation"
+
+# Description: "Description"
+# Difficulté: "Difficulté"
+# Favori: "Favori"
+# Ingrédients: "Ingrédients"
+# Nom: "Nom"
+# Nombre de personnes: "Nombre de personnes"
+# Prix (en €/kg): "Prix (en €/kg)"
+# Temps de préparation: "Temps de préparation"

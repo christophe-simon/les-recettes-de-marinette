@@ -22,7 +22,7 @@ class IngredientController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/ingredients', name: 'app_ingredient_index', methods: ['GET'])]
+    #[Route('/ingredients', name: 'app_ingredients_index', methods: ['GET'])]
     public function index(IngredientRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
         $ingredients = $paginator->paginate(
@@ -43,8 +43,8 @@ class IngredientController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('/ingredient/nouveau', name: 'app_ingredient_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $manager): Response
+    #[Route('/ingredient/creation', name: 'app_ingredient_create', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $ingredient = new Ingredient();
         $form = $this->createForm(IngredientType::class, $ingredient);
@@ -61,16 +61,24 @@ class IngredientController extends AbstractController
                 'L\'ingrédient a été créé avec succès!'
             );
 
-            return $this->redirectToRoute('app_ingredient_index');
+            return $this->redirectToRoute('app_ingredients_index');
         }
 
-        return $this->render('pages/ingredient/new.html.twig', [
+        return $this->render('pages/ingredient/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
-    #[Route('/ingredient/modification/{id}', name: 'app_ingredient_edit', methods: ['GET', 'POST'])]
-    public function edit(Ingredient $ingredient, Request $request, EntityManagerInterface $manager): Response
+    /**
+     * This method updates an existing ingredient
+     * 
+     * @param Ingredient $ingredient
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/ingredient/modification/{id}', name: 'app_ingredient_update', methods: ['GET', 'POST'])]
+    public function update(Ingredient $ingredient, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(IngredientType::class, $ingredient);
 
@@ -86,14 +94,21 @@ class IngredientController extends AbstractController
                 'L\'ingrédient a été modifié avec succès!'
             );
 
-            return $this->redirectToRoute('app_ingredient_index');
+            return $this->redirectToRoute('app_ingredients_index');
         }
 
-        return $this->render('pages/ingredient/edit.html.twig', [
+        return $this->render('pages/ingredient/update.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
+    /**
+     * This method deletes an existing ingredient
+     * 
+     * @param Ingredient|null $ingredient
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('/ingredient/suppression/{id}', name: 'app_ingredient_delete', methods: ['GET'])]
     public function delete(?Ingredient $ingredient, EntityManagerInterface $manager): Response
     {
@@ -103,7 +118,7 @@ class IngredientController extends AbstractController
                 'L\'ingrédient n\'a pas été trouvé.'
             );
 
-            return $this->redirectToRoute('app_ingredient_index');
+            return $this->redirectToRoute('app_ingredients_index');
         }
 
         $manager->remove($ingredient);
@@ -114,6 +129,6 @@ class IngredientController extends AbstractController
             'L\'ingrédient a été supprimé avec succès!'
         );
 
-        return $this->redirectToRoute('app_ingredient_index');
+        return $this->redirectToRoute('app_ingredients_index');
     }
 }
