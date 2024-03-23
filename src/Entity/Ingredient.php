@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[ORM\UniqueConstraint(name: 'UNIQ_INGREDIENT_NAME', fields: ['name'])]
 #[UniqueEntity(fields: 'name', message: 'Un ingrédient avec le même nom existe déjà.')]
 class Ingredient
 {
@@ -19,7 +20,7 @@ class Ingredient
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(
-        message: 'Le nom de l\'ingrédient ne peut pas être nul.',
+        message: 'Le nom de l\'ingrédient est obligatoire.',
     )]
     #[Assert\Length(
         min: 2,

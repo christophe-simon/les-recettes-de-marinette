@@ -39,29 +39,34 @@ To get a local copy up and running follow these simple steps.
 
 ### Installation
 
-1. Clone the repo
-2. Create a .env.dev.local file and customize it with your DATABASE_URL variable (have a look in the .env file and customize the value according your Database system and your database username, password and server version)
-3. Create the database by typing in your terminal:
-
+1. Clone the repo by typing in your terminal:
 ```sh
-cd to/the/project/directory/path
+cd to/your/projects/directory
+git clone https://github.com/christophe-simon/les-recettes-de-marinette.git
+```
+2. Enter in the project directory by typing in your terminal:
+```sh
+cd les-recettes-de-marinette
+```
+3. Open the project with an IDE as Visual Studio Code by typing in your terminal:
+```sh
+code .
+```
+4. Create a .env.dev.local file at the root of this project and customize it with a DATABASE_URL variable (have a look in the .env file about an exemple of this DATABASE_URL variable and customize its value according to your database system, server version, username and password)
+5. Create the database on your computer by typing in your terminal:
+```sh
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
-
-4. Import the data from the fixtures by typing in your terminal:
-
+6. Import the data from the fixtures by typing in your terminal:
 ```sh
 php bin/console doctrine:fixtures:load
 ```
-
-5. Launch the server:
-
+7. Launch the server by typing in your terminal:
 ```sh
 symfony serve -d
 ```
-
-6. Open the https://127.0.0.1:8000 address in your favorite internet browser (or another port that 8000 if the Symfony server gives you another port at starting)
+8. Open the https://127.0.0.1:8000 url in your favorite internet browser (or another port instead of 8000 if the Symfony server mentions another port)
 
 <!-- USAGE EXAMPLES -->
 <!--

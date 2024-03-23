@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[ORM\UniqueConstraint(name: 'UNIQ_RECIPE_NAME', fields: ['name'])]
 #[UniqueEntity(fields: 'name', message: 'Une recette avec le même nom existe déjà.')]
 class Recipe
 {
