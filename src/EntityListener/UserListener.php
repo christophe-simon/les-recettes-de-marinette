@@ -19,7 +19,7 @@ class UserListener
         $this->hashPassword($user);
     }
 
-    public function preUpdate(User $user):void
+    public function preUpdate(User $user): void
     {
         $this->hashPassword($user);
     }
@@ -40,6 +40,7 @@ class UserListener
             $user,
             $user->getPlainPassword()
         );
+
         $user->setPassword($hashedPassword);
         $user->setPlainPassword(null);
     }

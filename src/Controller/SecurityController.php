@@ -12,15 +12,15 @@ class SecurityController extends AbstractController
     #[Route('/connexion', name: 'app_security_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Récupère l'erreur de connexion s'il y en a une
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        // Dernier nom d'utilisateur saisi par l'utilisateur
-        $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('pages/security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error'         => $error,
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error'         => $authenticationUtils->getLastAuthenticationError(),
         ]);
+    }
+
+    #[Route('/deconnexion', name: 'app_security_logout')]
+    public function logout()
+    {
+        // Nothing to do here
     }
 }

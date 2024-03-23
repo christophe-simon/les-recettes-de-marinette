@@ -15,27 +15,42 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
+        $uniqueIngredientsNames = [];
+        $uniqueRecipesNames = [];
+
         // Ingredients
         $ingredients = [];
-        for ($i = 1; $i <= 50; $i++) {
-            $ingredient = new Ingredient();
-            $ingredient->setName($faker->word())
-                ->setPrice(mt_rand(0.01, 100));
+        for ($i = 0; $i < 50; $i++) {
+            do {
+                $ingredientName = $faker->word();
+            } while (in_array($ingredientName, $uniqueIngredientsNames));
 
+            $ingredient = new Ingredient();
+            $ingredient->setName($ingredientName)
+                ->setPrice(mt_rand(1, 9999) / 100);
+
+            $uniqueIngredientsNames[] = $ingredientName;
             $ingredients[] = $ingredient;
             $manager->persist($ingredient);
         }
 
         // Recipes
-        for ($i = 1; $i <= 25; $i++) {
+        for ($i = 0; $i < 25; $i++) {
+            do {
+                $wordsArray = $faker->words(mt_rand(1, 3));
+                $recipeName = implode(' ', $wordsArray);
+            } while (in_array($recipeName, $uniqueRecipesNames));
+
             $recipe = new Recipe();
-            $recipe->setName($faker->word())
+            $recipe->setName($recipeName)
                 ->setPreparationTime(mt_rand(0, 1) == 1 ? mt_rand(1, 1439) : null)
                 ->setNumberOfPeople(mt_rand(0, 1) == 1 ? mt_rand(1, 49) : null)
                 ->setDifficulty(mt_rand(0, 1) == 1 ? mt_rand(1, 5) : null)
                 ->setDescription($faker->text(300))
                 ->setPrice(mt_rand(0, 1) == 1 ? mt_rand(1, 999) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false);
+
+            $uniqueRecipesNames[] = $recipeName;
 
             for ($j = 1; $j <= mt_rand(5, 15); $j++) {
                 $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
@@ -52,10 +67,6 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email())
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password');
-
-            // for ($k = 1; $k <= mt_rand(5, 15); $k++) {
-            //     $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
-            // }
 
             $manager->persist($user);
         }
