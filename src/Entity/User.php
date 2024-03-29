@@ -23,34 +23,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(
-        message: 'Le nom complet de l\'utilisateur est obligatoire.',
+        message: 'Le nom complet est obligatoire.',
     )]
     #[Assert\Length(
         min: 2,
         max: 50,
-        minMessage: 'Le nom complet de l\'utilisateur doit comporter au minimum {{ limit }} caractères',
-        maxMessage: 'Le nom complet de l\'utilisateur doit comporter au maximum {{ limit }} caractères',
+        minMessage: 'Le nom complet doit comporter au minimum {{ limit }} caractères',
+        maxMessage: 'Le nom complet doit comporter au maximum {{ limit }} caractères',
     )]
     private ?string $fullName = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(
         min: 2,
         max: 50,
-        minMessage: 'Le pseudo de l\'utilisateur doit comporter au minimum {{ limit }} caractères',
-        maxMessage: 'Le pseudo de l\'utilisateur doit comporter au maximum {{ limit }} caractères',
+        minMessage: 'Le pseudo doit comporter au minimum {{ limit }} caractères',
+        maxMessage: 'Le pseudo doit comporter au maximum {{ limit }} caractères',
     )]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(
+        message: 'L\'email est obligatoire.',
+    )]
     #[Assert\Email(
-        message: 'L\'email de l\'utilisateur doit être de type email.',
+        message: 'L\'email doit être de type email.',
     )]
     #[Assert\Length(
         min: 2,
         max: 180,
-        minMessage: 'L\'email de l\'utilisateur doit comporter au minimum {{ limit }} caractères',
-        maxMessage: 'L\'email de l\'utilisateur doit comporter au maximum {{ limit }} caractères',
+        minMessage: 'L\'email doit comporter au minimum {{ limit }} caractères',
+        maxMessage: 'L\'email doit comporter au maximum {{ limit }} caractères',
     )]
     private ?string $email = null;
 
@@ -59,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Assert\NotNull(
-        message: 'Le rôle l\'utilisateur est obligatoire.',
+        message: 'Le rôle est obligatoire.',
     )]
     private array $roles = [];
 
@@ -70,19 +73,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Assert\NotBlank(
-        message: 'Le mot de passe de l\'utilisateur est obligatoire.',
+        message: 'Le mot de passe est obligatoire.',
     )]
-    private ?string $password = null;
+    private ?string $password = 'motDePasse';
 
     #[ORM\Column]
     #[Assert\NotNull(
-        message: 'La date de création de l\'utilisateur est obligatoire.',
+        message: 'La date de création est obligatoire.',
     )]
     private ?DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column]
+    #[Assert\NotNull(
+        message: 'La date de modification est obligatoire.',
+    )]
+    private ?DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
-        $this->createdAt = new DateTimeImmutable();
+        $currentDate = new DateTimeImmutable();
+        $this->createdAt = $currentDate;
+        $this->updatedAt = $currentDate;
     }
 
     public function getId(): ?int
@@ -162,7 +173,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of plainPassword
-     */ 
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -172,7 +183,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of plainPassword
      *
      * @return  self
-     */ 
+     */
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
@@ -212,6 +223,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

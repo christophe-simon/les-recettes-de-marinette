@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class IngredientController extends AbstractController
 {
     /**
-     * This method displays all ingredients
+     * This method enables to display all ingredients
      *
      * @param IngredientRepository $repo
      * @param PaginatorInterface $paginator
@@ -37,7 +37,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * This method adds a new ingredient
+     * This method enables to add a new ingredient
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -70,7 +70,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * This method updates an existing ingredient
+     * This method enables to update an existing ingredient
      * 
      * @param Ingredient $ingredient
      * @param Request $request
@@ -103,7 +103,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * This method deletes an existing ingredient
+     * This method enables to delete an existing ingredient
      * 
      * @param Ingredient|null $ingredient
      * @param EntityManagerInterface $manager

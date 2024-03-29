@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class RecipeController extends AbstractController
 {
     /**
-     * This method displays all recipes
+     * This method enables to display all recipes
      *
      * @param RecipeRepository $repo
      * @param PaginatorInterface $paginator
@@ -37,7 +37,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * This method adds a new recipe
+     * This method enables to add a new recipe
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -70,7 +70,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * This method updates an existing recipe
+     * This method enables to update an existing recipe
      * 
      * @param Recipe $recipe
      * @param Request $request
@@ -103,7 +103,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * This method deletes an existing recipe
+     * This method enables to delete an existing recipe
      * 
      * @param Recipe|null $recipe
      * @param EntityManagerInterface $manager

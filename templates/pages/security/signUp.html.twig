@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes de Marinette - Inscription{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4">Formulaire d'inscription</h1>
+
+        {% if form.vars.errors|length > 0 %}
+            <div class="alert alert-danger">
+                {{ form_errors(form) }}
+            </div>
+        {% endif %}
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'data-turbo': 'false'}}) }}
+
+            <div>
+                {{ form_label(form.fullName) }}
+                {{ form_widget(form.fullName) }}
+                <div class="form-error">
+                    {{ form_errors(form.fullName) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(form.pseudo) }}
+                {{ form_widget(form.pseudo) }}
+                <div class="form-error">
+                    {{ form_errors(form.pseudo) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                <div class="form-error">
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+
+            <div>
+                {{ form_label(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first) }}
+                <div class="form-error">
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+            </div>
+            
+            <div>
+                {{ form_label(form.plainPassword.second) }}
+                {{ form_widget(form.plainPassword.second) }}
+                <div class="form-error">
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+            </div>
+
+            <div>
+                <input type="submit" class="btn btn-primary mt-4" value="M'enregistrer">
+            </div>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
